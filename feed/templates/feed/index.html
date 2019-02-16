@@ -1,0 +1,61 @@
+{% extends 'feed/base.html' %}
+
+{% block content %}
+    <h1>Social Post</h1>
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <form action="{% url 'feed:create' %}" method="post">
+        {% csrf_token %}
+        <!-- Post Name -->
+        <div class="form-group">
+            <h2>New Post</h2>
+            <div class="col-sm-6">
+                Author:
+                {{ form.author }}
+                Title:
+                {{ form.title }}
+                Text:
+                {{ form.text }}
+            </div>
+        </div>
+
+        <!-- Add Post Button -->
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Add New Post
+                </button>
+            </div>
+        </div>
+
+    </form>
+    
+
+    <!-- Current Feed -->
+    <h2>News Feed</h2>
+    <table class="table table-striped todo-table">
+        <thead>
+            <th>Posts</th><th>&nbsp;</th>
+        </thead>
+
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <!-- Post Name -->
+                    <td>
+                        <div>Author:  {{ post.author }}</div>
+                        <div>Title :  {{ post.title }}</div>
+                        <div>{{ post.text }}</div>
+                    </td>
+                    <td>
+                        <form action="{% url 'feed:delete' post.id %}" method="post">
+                            {% csrf_token %}
+                            <button>Delete Post</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock %}
