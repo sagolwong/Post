@@ -1,8 +1,9 @@
 {% extends 'feed/base.html' %}
 
 {% block content %}
-    <h1>Social Post</h1>
-
+    <div class="page-header"><h1>Social Post</h1></div>
+    <br>
+    
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     <form action="{% url 'feed:create' %}" method="post">
         {% csrf_token %}
@@ -29,10 +30,10 @@
         </div>
 
     </form>
-    
+    <br>
 
     <!-- Current Feed -->
-    <h2>News Feed</h2>
+    <h2>Posts Feed</h2>
     <table class="table table-striped todo-table">
         <thead>
             <th>Posts</th><th>&nbsp;</th>
